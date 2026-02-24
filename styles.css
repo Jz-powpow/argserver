@@ -22,7 +22,7 @@ body {
 .container {
   width: 100%;
   max-width: 600px;
-  padding: 20px;
+  padding: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +30,8 @@ body {
 
 .banner {
   display: none;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 20px;
+  margin: 20px 0;
   background: rgba(61, 48, 56, 0.600);
   color: #fff;
   border-radius: 5px;
@@ -47,7 +47,7 @@ body {
 
 .card {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   background-color: rgba(255,255,255,0.85);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -79,8 +79,8 @@ form{
   width: 100%;
 }
 input{
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 26px;
+  padding: 2px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
