@@ -1,33 +1,47 @@
 let metodoSeleccionado = "";
 
-// Cambiar panel activo
+// cambiar panel activo
 function showPanel(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Selección de método
 function selectMethod(metodo){
     metodoSeleccionado = metodo;
     showPanel("panelDatos");
 
     if(metodo === "binance"){
+        // Binance
         document.getElementById("datosMetodo").innerHTML = `
             <p onclick="copiar(this, '782849551')">ID BINANCE: 782849551</p>
             <p>NOMBRE: argserver</p>
             <label>Monto en USDT:</label>
+            <input type="number" id="montoUSDT" placeholder="Monto en USDT">
         `;
     } else {
+        // USDT → ARS
         document.getElementById("datosMetodo").innerHTML = `
+            <p>MERCADOPAGO</p>
             <p onclick="copiar(this, '0000003100066665774614')">CVU: 0000003100066665774614</p>
             <p onclick="copiar(this, 'brianna.paredes')">ALIAS: brianna.paredes</p>
             <p>NOMBRE: Rocío Michel Paredes</p>
-            <label>Monto en ARS:</label>
+            <label>Monto en USDT:</label>
+            <input type="number" id="montoUSDTTransfer" placeholder="Monto en USDT">
+            <p id="equivalenteARS">Equivalente en ARS: $0</p>
         `;
+
+        // listener USDT → ARS
+        const inputUSDT = document.getElementById("montoUSDTTransfer");
+        inputUSDT.addEventListener("input", function(){
+            const valorUSDT = parseFloat(inputUSDT.value) || 0;
+            const equivalente = valorUSDT * 1600; // tasa fija
+            document.getElementById("equivalenteARS").textContent = 
+                `Equivalente en ARS: $${equivalente.toLocaleString("es-AR")}`;
+        });
     }
 }
 
-// Copiar al portapapeles
+// copiar al portapapeles
 function copiar(el, texto){
   navigator.clipboard.writeText(texto);
   const s = document.createElement('span');
@@ -37,14 +51,14 @@ function copiar(el, texto){
   setTimeout(()=>s.remove(), 1500);
 }
 
-// Ir al formulario de comprobante
+// ir al formulario
 function goToComprobante(){
   showPanel("panelComprobante");
   document.getElementById("montoFinal").placeholder = 
     metodoSeleccionado === "binance" ? "Monto en USDT" : "Monto en ARS";
 }
 
-// Leer URL
+// leer URL
 const codigoRecarga = new URLSearchParams(window.location.search).get('recarga') || '';
 
 if(codigoRecarga){
@@ -54,15 +68,15 @@ if(codigoRecarga){
   document.getElementById('recargaMissing').classList.add('show');
 }
 
-// Enviar comprobante
+// enviar comprobante
 function enviarATelegram(nombre, correo, monto, file){
   if(!codigoRecarga){
-    // Si no hay code
+    // si no hay code
     return;
   }
 
-  const TELEGRAM_TOKEN = "8377456219:AAFTaDBSnVnoZ1i4uiXyiYS8KMKqajpKPmA"; // < token
-  const CHAT_ID = "7814482653";        // < chat id
+  const TELEGRAM_TOKEN = "8524286008:AAHU6V1lWW6lvjN6UtV7UTe4knfIsypKl9E"; // < token
+  const CHAT_ID = "8308126007";        // < chat id
   const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`;
 
   const formData = new FormData();
@@ -84,19 +98,19 @@ function enviarATelegram(nombre, correo, monto, file){
   fetch(url, { method: "POST", body: formData });
 }
 
-// Panel final según condición
+// panel final según condición
 function mostrarPanelFinal(){
   const panelFinal = document.getElementById("panelFinal");
 
   if(!codigoRecarga){
-    // Mensaje de error
+    // mensaje de error
     panelFinal.innerHTML = `
       <div class="error-icon">❌</div>
       <h1>NO SE PUDO ENVIAR EL COMPROBANTE</h1>
       <p>Falta código de recarga en la URL</p>
     `;
   } else {
-    // Mensaje de éxito
+    // mensaje de éxito
     panelFinal.innerHTML = `
       <div class="success-icon">✅</div>
       <h1>Comprobante enviado con éxito</h1>
@@ -104,7 +118,7 @@ function mostrarPanelFinal(){
       <p id="countdownText">Serás redirigido en... (20 segundos)</p>
     `;
 
-    // Cuenta regresiva
+    // cuenta regresiva
     let seconds = 20;
     const countdownEl = document.getElementById("countdownText");
     const interval = setInterval(() => {

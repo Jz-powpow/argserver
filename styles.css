@@ -1,4 +1,4 @@
-/* Contenedor principal */
+/* principal */
 body {
   margin: 0;
   height: 100vh;
@@ -22,7 +22,7 @@ body {
 .container {
   width: 100%;
   max-width: 600px;
-  padding: 20px;
+  padding: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +30,8 @@ body {
 
 .banner {
   display: none;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 20px;
+  margin: 20px 0;
   background: rgba(61, 48, 56, 0.600);
   color: #fff;
   border-radius: 5px;
@@ -47,10 +47,10 @@ body {
 
 .card {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   background-color: rgba(255,255,255,0.85);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   padding: 20px;
 }
 
@@ -61,7 +61,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  transition: opacity 0.6s ease;
+  transition: opacity 1.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,8 +79,8 @@ form{
   width: 100%;
 }
 input{
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 26px;
+  padding: 2px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -111,7 +111,7 @@ button:hover{
 
 @media (max-width: 600px) {
   .card {
-    max-width: 95%;   /* ocupa casi todo el ancho en móviles */
+    max-width: 95%;   /* mobile viewport */
     padding: 15px;
   }
 
@@ -127,9 +127,9 @@ button:hover{
 }
 
 .copiado {
-  display: inline-block;   /* se queda en la misma línea */
-  margin-left: 8px;        /* espacio entre el número y el mensaje */
-  color: #16a34a;          /* verde */
+  display: inline-block;   /* misma linea */
+  margin-left: 8px;        /* espacios */
+  color: #16a34a;          /* confirmado */
   font-weight: bold;
   font-size: 0.9rem;
 }
