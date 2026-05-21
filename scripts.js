@@ -1,6 +1,5 @@
 let metodoSeleccionado = "";
 
-// cambiar panel activo
 function showPanel(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -19,7 +18,7 @@ function selectMethod(metodo){
             <input type="number" id="montoUSDT" placeholder="Monto en USDT">
         `;
     } else {
-        // USDT → ARS
+        // USDT - ARS
         document.getElementById("datosMetodo").innerHTML = `
             <p>MERCADOPAGO</p>
             <p onclick="copiar(this, '0000003100066665774614')">CVU: 0000003100066665774614</p>
@@ -29,19 +28,18 @@ function selectMethod(metodo){
             <input type="number" id="montoUSDTTransfer" placeholder="Monto en USDT">
             <p id="equivalenteARS">Equivalente en ARS: $0</p>
         `;
-
-        // listener USDT → ARS
+      
         const inputUSDT = document.getElementById("montoUSDTTransfer");
         inputUSDT.addEventListener("input", function(){
             const valorUSDT = parseFloat(inputUSDT.value) || 0;
-            const equivalente = valorUSDT * 1600; // tasa fija
+            const equivalente = valorUSDT * 1600;
             document.getElementById("equivalenteARS").textContent = 
                 `Equivalente en ARS: $${equivalente.toLocaleString("es-AR")}`;
         });
     }
 }
 
-// copiar al portapapeles
+
 function copiar(el, texto){
   navigator.clipboard.writeText(texto);
   const s = document.createElement('span');
@@ -51,14 +49,14 @@ function copiar(el, texto){
   setTimeout(()=>s.remove(), 1500);
 }
 
-// ir al formulario
+
 function goToComprobante(){
   showPanel("panelComprobante");
   document.getElementById("montoFinal").placeholder = 
     metodoSeleccionado === "binance" ? "Monto en USDT" : "Monto en ARS";
 }
 
-// leer URL
+
 const codigoRecarga = new URLSearchParams(window.location.search).get('recarga') || '';
 
 if(codigoRecarga){
@@ -68,15 +66,15 @@ if(codigoRecarga){
   document.getElementById('recargaMissing').classList.add('show');
 }
 
-// enviar comprobante
+
 function enviarATelegram(nombre, correo, monto, file){
   if(!codigoRecarga){
-    // si no hay code
+    
     return;
   }
 
-  const TELEGRAM_TOKEN = "8524286008:AAHU6V1lWW6lvjN6UtV7UTe4knfIsypKl9E"; // < token
-  const CHAT_ID = "8308126007";        // < chat id
+  const TELEGRAM_TOKEN = "8864110213:AAF6KsM3cC5JBmeWZG9zvMaNPXryHG2f0aA"; 
+  const CHAT_ID = "8757780487";        
   const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument`;
 
   const formData = new FormData();
@@ -98,19 +96,19 @@ function enviarATelegram(nombre, correo, monto, file){
   fetch(url, { method: "POST", body: formData });
 }
 
-// panel final según condición
+
 function mostrarPanelFinal(){
   const panelFinal = document.getElementById("panelFinal");
 
   if(!codigoRecarga){
-    // mensaje de error
+    
     panelFinal.innerHTML = `
       <div class="error-icon">❌</div>
       <h1>NO SE PUDO ENVIAR EL COMPROBANTE</h1>
       <p>Falta código de recarga en la URL</p>
     `;
   } else {
-    // mensaje de éxito
+    
     panelFinal.innerHTML = `
       <div class="success-icon">✅</div>
       <h1>Comprobante enviado con éxito</h1>
@@ -118,7 +116,7 @@ function mostrarPanelFinal(){
       <p id="countdownText">Serás redirigido en... (20 segundos)</p>
     `;
 
-    // cuenta regresiva
+    
     let seconds = 20;
     const countdownEl = document.getElementById("countdownText");
     const interval = setInterval(() => {
@@ -131,12 +129,12 @@ function mostrarPanelFinal(){
     }, 1000);
   }
 
-  // panel final
+  
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   panelFinal.classList.add('active');
 }
 
-// formulario
+
 document.getElementById("comprobanteForm").addEventListener("submit", function(e){
   e.preventDefault();
 
