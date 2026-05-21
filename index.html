@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Background -->
+  
   <video autoplay muted loop id="bgVideo">
     <source src="assets/background.mp4" type="video/mp4">
   </video>
@@ -15,7 +15,7 @@
   <div class="container">
     <div class="card" id="card">
 
-<!-- Banner de recarga -->
+
   <div id="recargaBanner" class="banner">
     Código de recarga: <span id="recargaCode"></span>
   </div>
@@ -24,14 +24,14 @@
     No se encontró ningún código de recarga ⚠️
   </div>
 
-      <!-- Selección -->
+      
       <div class="panel active" id="panelMetodo">
         <h2>Selecciona el método de pago</h2>
         <button onclick="selectMethod('binance')">Binance</button>
         <button onclick="selectMethod('transferencia')">Transferencia bancaria</button>
       </div>
 
-      <!-- Datos -->
+      
       <div class="panel" id="panelDatos">
         <h1>Datos del pago</h1>
         <div id="datosMetodo"></div>
@@ -39,7 +39,7 @@
         <button onclick="goToComprobante()">Continuar</button>
       </div>
 
-      <!-- Formulario -->
+      
       <div class="panel" id="panelComprobante">
         <h1>Enviar comprobante</h1>
         <form id="comprobanteForm">
@@ -51,7 +51,7 @@
         </form>
       </div>
 
-      <!-- Mensaje y redirect -->
+      
       <div class="panel success-panel" id="panelFinal">
         <div class="success-icon">✅</div>
         <h1>Comprobante enviado con éxito</h1>
